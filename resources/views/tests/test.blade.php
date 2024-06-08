@@ -1,4 +1,4 @@
 @foreach($values as $value)
 {{ $value->name }}<br>
-{{ $value->id }}
+{{ $value->id }}<br>
 @endforeach
