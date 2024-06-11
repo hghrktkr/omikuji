@@ -9,9 +9,6 @@ use Illuminate\Support\Facades\Auth;
 
 class ItemController extends Controller
 {
-    public function index(){
-        return view('omikuji.index');
-    }
 
     public function omikuji_draw(){
         // DBから0でないおみくじを集めてコレクションにする
@@ -24,8 +21,16 @@ class ItemController extends Controller
             // くじを全部引いてしまったときの処理
         }
 
+        // くじののこり本数に応じて重み付け
+        $rank_names =[];
+        foreach($items as $item){
+            for($i = 0; $i < $item->quantity; $i++){
+                $rank_names[] = $item;
+            }
+        }
+
         // ランダムに引いたくじを変数へ
-        $result_omikuji = $items->random();
+        $result_omikuji = $rank_names[array_rand($rank_names)];
 
         // 引いたくじの本数を減らす
         $result_omikuji->quantity -= 1;

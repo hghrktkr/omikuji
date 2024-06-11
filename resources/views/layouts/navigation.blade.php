@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-gray-50 dark:bg-gray-50 border-b border-gray-100 dark:border-gray-100">
+<nav x-data="{ open: false }" class="bg-gray-50 border-b border-gray-100 sticky top-0">
     <!-- Primary Navigation Menu -->
     <div class="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -6,7 +6,7 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
                         <!-- <img src="{{ asset('images\v-st_logo.png') }}" width="20%"> -->
                         <p class="text-sm text-grey-800 dark:text-green-600 font-medium">くじびきシステム</p>
                     </a>
@@ -17,6 +17,9 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('omikuji.history')" :active="request()->routeIs('omikuji.history')">
+                        {{ __('History') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -24,7 +27,7 @@
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
-                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-green-600 dark:text-green-600 bg-gray-50 dark:bg-gray-50 hover:text-green-700 hover:bg-green-100 dark:hover:text-green-700 dark:hover:bg-green-100 focus:outline-none transition ease-in-out duration-150">
+                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-m leading-4 font-medium rounded-md text-green-600 bg-gray-50 hover:text-green-700 hover:bg-green-100 focus:outline-none transition ease-in-out duration-150">
                             <div>{{ Auth::user()->name }}</div>
 
                             <div class="ms-1">
@@ -56,7 +59,7 @@
 
             <!-- Hamburger -->
             <div class="-me-2 flex items-center sm:hidden">
-                <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gren-600 dark:text-green-600 hover:text-green-500 dark:hover:text-green-500 hover:bg-green-50 dark:hover:bg-green-50 focus:outline-none focus:bg-green-50 dark:focus:bg-green-50 focus:text-green-400 dark:focus:text-green-400 transition duration-150 ease-in-out">
+                <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gren-600 dark:text-green-600 hover:text-green-500 hover:bg-green-50 focus:outline-none focus:bg-green-50 focus:text-green-400 transition duration-150 ease-in-out">
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                         <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                         <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -72,10 +75,13 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                {{ __('History') }}
+            </x-responsive-nav-link>
         </div>
 
         <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
+        <div class="pt-4 pb-1 border-t border-gray-200">
             <div class="px-4">
                 <div class="font-medium text-base text-green-600 dark:text-green-600">{{ Auth::user()->name }}</div>
                 <div class="font-medium text-sm text-green-600">{{ Auth::user()->email }}</div>
