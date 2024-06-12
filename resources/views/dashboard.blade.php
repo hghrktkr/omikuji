@@ -12,13 +12,15 @@
                     {{ __("You're logged in!") }}
                 </div> -->
                 <div class="text-2xl sm:text-6xl">くじびき</div>
-                <form method="POST" action="{{ route('omikuji.result') }}">
+                <form method="POST" action="{{ route('omikuji.start') }}">
                     @csrf
+                    <input type="hidden" name="is_practice" value="0"/>
                     <x-big-button>くじをひく</x-big-button>
                 </form>
-                <form method="POST" action="{{ route('omikuji.result') }}">
+                <form method="POST" action="{{ route('omikuji.start') }}">
+                <input type="hidden" name="is_practice" value="1"/>
                     @csrf
-                    <x-big-button>くじをひく<br>(れんしゅう)</x-big-button>
+                    <x-big-button>れんしゅう</x-big-button>
                 </form>
             </div>
         </div>

@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // 結果表示用ドキュメント
   const resultText = document.getElementById('result_text');
   const explanation = document.getElementById('explanation');
-  const rankName = resultText.dataset.rank_name;
+  const rankName = resultText.dataset.rank;
 
   // 結果表示用コンテナ
   const resultContainer = document.querySelector('.result');

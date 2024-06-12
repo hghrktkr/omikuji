@@ -20,7 +20,8 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::post('/result', [ItemController::class, 'omikuji_draw'])->name('omikuji.result');
-Route::post('/dashboard', [HistoryController::class, 'add_history'])->name('omikuji.savehistory');
 Route::get('/history', [HistoryController::class, 'show_history'])->name('omikuji.history');
+Route::get('/empty', function(){return view('omikuji.empty');})->name('omikuji.empty');
+Route::post('/start', function(){return view('omikuji.start');})->name('omikuji.start');
 
 require __DIR__.'/auth.php';
