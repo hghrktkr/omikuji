@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
 
 class CheckActiveSession
 {
@@ -20,13 +21,20 @@ class CheckActiveSession
         if(Auth::check()){
 
             // ユーザーのIDを取得
-            $user_id = Auth::user()->id;
-            dd($user_id);
-            // sessionsテーブルのセッションIDを取得
-            $session_id = Session::getId();
+            $user_id = Auth::id();
 
-            // ログイン中のユーザーのセッションIDと、送信されているセッションIDを比較
-            if($active_session_id !== $session_id){
+            // クライアント側のセッションIDを取得
+            $current_session_id = $request->session()->getId();
+            // dd($current_session_id);
+
+            // sessionsテーブルに同一ユーザーの別セッションIDが無いか確認
+            $same_user_session_ids = DB::table('sessions')->where([
+                ['user_id', '=', $user_id],
+                ['id', '<>', $current_session_id]
+                ])->get();
+
+            // 同一ユーザーの別セッションIDがある場合
+            if($same_user_session_ids->isNotEmpty()){
                 // 一致していないとき=二重ログイン時はログアウト
                 Auth::logout();
 
