@@ -24,9 +24,13 @@
     
     <!-- 結果表示 -->
     <div class="result hidden text-center">
-    <p class="sm:text-4xl text:2xl font-extrabold mb-10">ひいたくじは…</p>
-      <p id="result_text" class="sm:text-8xl text:4xl text-yellow-400 font-extrabold mb-10" data-rank="{{ $result_omikuji->rank_name }}"></p>
-
+      <p class="sm:text-4xl text:2xl font-extrabold mb-10">ひいたくじは…</p>
+      <div class="flex inline items-center justify-center bg-white bg-opacity-20 m-5">
+        <img src="{{ asset('images\axolotl.png') }}" class="w-1/4 cursor-pointer">
+        <p id="result_text" class="sm:text-8xl text-4xl text-yellow-400 font-extrabold mb-10" data-rank="{{ $result_omikuji->rank_name }}"></p>
+        <img src="{{ asset('images\warden.png') }}" class="w-1/4 cursor-pointer">
+      </div>
+      
       <form method="GET" action="{{ route( 'dashboard' ) }}">
         @csrf
         <x-primary-button class="ms-3">
