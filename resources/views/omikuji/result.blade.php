@@ -12,14 +12,22 @@
     }
   </style>
 
+  <script>
+    window.addEventListener('beforeunload', function(event) {
+        // リロードしようとすると警告ダイアログを表示
+        event.preventDefault();
+        event.returnValue = '';
+    });
+  </script>
+
   <div class="flex flex-col items-center">
 
     <p class="sm:text-4xl text-2xl font-bold mb-10" id="explanation">3つのブロックから1つえらぼう！</p>
     <!-- 選択するpngイメージ -->
     <div class="container flex justify-around relative mb-8">
-      <img src="{{ asset('images\tnt.png') }}" class="png_image w-1/4 cursor-pointer">
-      <img src="{{ asset('images\emerald_ore.png') }}" class="png_image w-1/4 cursor-pointer">
-      <img src="{{ asset('images\diamond_ore.png') }}" class="png_image w-1/4 cursor-pointer">
+      <img src="{{ asset($block_left->block_path) }}" class="png_image w-1/4 cursor-pointer">
+      <img src="{{ asset($block_center->block_path) }}" class="png_image w-1/4 cursor-pointer">
+      <img src="{{ asset($block_right->block_path) }}" class="png_image w-1/4 cursor-pointer">
     </div>
     
     <!-- 結果表示 -->

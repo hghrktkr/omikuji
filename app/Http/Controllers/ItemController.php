@@ -7,6 +7,7 @@ use App\Models\Item;
 use App\Models\History;
 use App\Models\User;
 use App\Models\Image;
+use App\Models\Block;
 use Illuminate\Support\Facades\Auth;
 
 class ItemController extends Controller
@@ -50,8 +51,18 @@ class ItemController extends Controller
         // 表示するエンティティ画像をランダムに取得
         $image_right = Image::where('is_right', '1')->inRandomOrder()->first();
         $image_left = Image::where('is_right', '0')->inRandomOrder()->first();
+
+        // 表示するブロック画像をランダムに取得
+        $block_left = Block::inRandomOrder()->first();
+        $block_center = Block::where([['id', '<>', $block_left->id]])->inRandomOrder()->first();
+        $block_right = Block::where([
+                            ['id', '<>', $block_left->id],
+                            ['id', '<>', $block_center->id]
+                            ])
+                            ->inRandomOrder()
+                            ->first();
         
         // 引いたくじのデータとともに結果画面へ
-        return view('omikuji.result', compact('result_omikuji', 'image_right', 'image_left'));
+        return view('omikuji.result', compact('result_omikuji', 'image_right', 'image_left', 'block_left', 'block_center', 'block_right'));
     }
 }
