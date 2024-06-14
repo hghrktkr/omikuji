@@ -37,24 +37,28 @@ class CheckActiveSession
             if($latest_session && $latest_session->id !== $current_session_id){
                 // 最新でない場合ログアウト
                 Auth::logout();
-                // 該当セッション情報を無効化する
+
+                // セッションを無効化する前にエラーメッセージをセッションに格納
+                $request->session()->flash('message', '別の端末でログインがありました');
+
+                // 該当セッション情報を無効化
                 $request->session()->invalidate();
 
                 // ログインページへリダイレクト
-                return redirect()->route('login')->withErrors(['message' => '別の端末でログインがありました']);
+                return redirect()->route('login');
             }else{
                 // クライアントのセッションIDが最新の場合、タイムスタンプを更新
                 DB::table('sessions')
                     ->where('id', $current_session_id)
                     ->update(['last_activity' => now()->timestamp]);
 
-                // 最新であるクライアント以外のセッション情報を削除
-                DB::table('sessions')
-                    ->where([
-                        ['user_id', '=', $user_id],
-                        ['id', '<>', $current_session_id]
-                        ])
-                    ->delete();
+                // 最新であるクライアント以外のセッション情報を削除->既ログインクライアントのCSRFトークンも消えるので419エラーになる！
+                // DB::table('sessions')
+                //     ->where([
+                //         ['user_id', '=', $user_id],
+                //         ['id', '<>', $current_session_id]
+                //         ])
+                //     ->delete();
             };
         }
         return $next($request);
