@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
       setTimeout(() => {
         this.classList.add('hidden');
         lvup.play();
-        resultText.innerText = rankName + '賞です！';
+        resultText.innerText = rankName + '賞';
         resultContainer.classList.remove('hidden');
       }, 4000); // 4000ミリ秒後
     });
