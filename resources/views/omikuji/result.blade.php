@@ -26,9 +26,9 @@
     <div class="result hidden text-center">
       <p class="sm:text-4xl text:2xl font-extrabold mb-10">ひいたくじは…</p>
       <div class="flex inline items-center justify-center bg-white bg-opacity-20 m-5 max-h-full">
-        <img src="{{ asset($image_left->image_path) }}" class="max-h-full max-w-full w-1/4 cursor-pointer">
+        <img src="{{ asset($image_left->image_path) }}" class="object-contain max-h-96 max-w-full w-1/4 cursor-pointer">
         <p id="result_text" class="sm:text-8xl text-4xl text-yellow-400 font-extrabold mb-10" data-rank="{{ $result_omikuji->rank_name }}"></p>
-        <img src="{{ asset($image_right->image_path) }}" class="max-h-full max-w-full w-1/4 cursor-pointer">
+        <img src="{{ asset($image_right->image_path) }}" class="object-contain max-h-96 max-w-full w-1/4 cursor-pointer">
       </div>
       
       <form method="GET" action="{{ route( 'dashboard' ) }}">
