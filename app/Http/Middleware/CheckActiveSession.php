@@ -38,14 +38,11 @@ class CheckActiveSession
                 // 最新でない場合ログアウト
                 Auth::logout();
 
-                // セッションを無効化する前にエラーメッセージをセッションに格納
-                $request->session()->flash('message', '別の端末でログインがありました');
-
                 // 該当セッション情報を無効化
                 $request->session()->invalidate();
 
                 // ログインページへリダイレクト
-                return redirect()->route('login');
+                return redirect()->route('login')->with('message', '別の端末でログインがありました');
             }else{
                 // クライアントのセッションIDが最新の場合、タイムスタンプを更新
                 DB::table('sessions')
