@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\AdminAuthController;
+use App\Http\Controllers\AdminUserEditController;
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\CheckActiveSession;
@@ -41,9 +42,9 @@ Route::prefix('admin')->group(function(){
 
     // 管理者ログイン後のページ
     Route::middleware('auth:admin')->group(function () {
-        Route::get('/dashboard', function () {
-            return view('admin.dashboard');
-        })->name('admin.dashboard');
+        Route::get('/dashboard', [AdminUserEditController::class, 'index'])->name('admin.dashboard');
+        Route::post('/dashboard/edit', [AdminUserEditController::class, 'edit'])->name('admin.dashboard.edit');
+        Route::post('/dashboard/update', [AdminUserEditController::class, 'update'])->name('admin.dashboard.update');
     });
 });
 
