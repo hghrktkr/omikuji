@@ -44,6 +44,7 @@ Route::prefix('admin')->group(function(){
     Route::middleware('auth:admin')->group(function () {
         Route::get('/dashboard', [AdminUserEditController::class, 'index'])->name('admin.dashboard');
         Route::post('/dashboard/edit', [AdminUserEditController::class, 'edit'])->name('admin.dashboard.edit');
+        Route::get('/dashboard/edit', [AdminUserEditController::class, 'edit'])->name('admin.dashboard.edit.get');
         Route::post('/dashboard/update', [AdminUserEditController::class, 'update'])->name('admin.dashboard.update');
     });
 });

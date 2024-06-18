@@ -3,12 +3,31 @@
   <div class="container mx-auto">
     <div class="flex flex-col text-center w-full">
 
-      <!-- フラッシュメッセージの表示 -->
       @if (session('message'))
-        <div class="bg-white bg-opacity-20 mb-4 text-2xl font-bold text-green-600">
+
+        <!-- フラッシュメッセージの表示 -->
+        <div id="flash-message" class="bg-white bg-opacity-50 mb-4 text-2xl font-bold text-red-400">
           {{ session('message') }}
         </div>
+
+        <!-- フラッシュメッセージを3秒後に非表示に -->
+        <script>
+          
+          document.addEventListener('DOMContentLoaded', function() {
+            // 3秒後に実行される関数をセット
+            setTimeout(function() {
+              // フラッシュメッセージの要素を取得
+              var flashMessage = document.getElementById('flash-message');
+              // 要素が存在する場合、その表示を非表示にする
+              if (flashMessage) {
+                flashMessage.style.display = 'none';
+              }
+            }, 3000); // 3秒後にメッセージを非表示にする
+          });
+        </script>
       @endif
+
+      
 
       <!-- 教室一覧を取得して選択 -->
       <form action="{{ route('admin.dashboard.edit') }}" method="POST" class="sm:m-5">

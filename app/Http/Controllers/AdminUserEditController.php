@@ -34,6 +34,9 @@ class AdminUserEditController extends Controller
 
     public function update(Request $request) {
 
+        // 数値の変更があったかチェックするフラグ
+        $is_message_saved = false;
+
         $userEmail = $request->input('user_email');
 
         // 更新した数字を取得
@@ -42,14 +45,21 @@ class AdminUserEditController extends Controller
         // itemsのquantityを更新
         foreach ($quantities as $itemId => $quantity) {
             $item = Item::find($itemId);
-            if ($item) {
+
+            // アイテムが存在し、かつ数値の変更がある場合は保存してフラグをtrueに
+            if ($item && $item->quantity != $quantity) {
                 $item->quantity = $quantity;
                 $item->save();
+                $is_message_saved = true;
             }
         }
 
-        $request->merge(['user_email'=> $userEmail]);
-        return $this->edit($request);
-        // return redirect()->route('admin.dashboard.edit', $request)->with('message','更新されました');
+        // 変更があった場合はメッセージ内容を持ってリダイレクト
+        if ($is_message_saved) {
+            return redirect()->route('admin.dashboard.edit.get', ['user_email' => $userEmail])
+                ->with('message', '情報が更新されました');
+        }else {
+            return redirect()->route('admin.dashboard.edit.get', ['user_email' => $userEmail]);
+        }
     }
 }
