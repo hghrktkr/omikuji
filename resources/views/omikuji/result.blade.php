@@ -51,6 +51,7 @@
   <audio id="drum" src="{{ asset('audio/drum.mp3') }}" preload="auto"></audio>
   <audio id="lvup" src="{{ asset('audio/lvup.mp3') }}" preload="auto"></audio>
 
+  
   <!-- スクリプト読み込み -->
   @section('scripts')
     @vite('resources/js/omikuji.js')
