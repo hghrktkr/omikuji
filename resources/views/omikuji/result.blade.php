@@ -53,6 +53,6 @@
 
   <!-- スクリプト読み込み -->
   @section('scripts')
-    @vite('resources\js\omikuji.js')
+    @vite('resources/js/omikuji.js')
   @endsection
 </x-app-layout>
