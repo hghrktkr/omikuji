@@ -53,7 +53,7 @@
         <input type="hidden" name="user_email" value="{{ $userEmail }}">
 
         <div class="lg:w-2/3 w-full mx-auto overflow-auto object-contain">
-          <h1 class="font-extrabold sm:text-2xl text-xl sm:mb-10 mb-5">{{ $user->name }}</h1>
+          <h1 class="font-extrabold sm:text-2xl text-xl sm:mb-10 mb-5">{{ $userEmail }}</h1>
           <table class="table-auto w-full text-left whitespace-no-wrap">
             <thead>
               <tr>
