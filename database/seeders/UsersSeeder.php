@@ -16,7 +16,7 @@ class UsersSeeder extends Seeder
         User::truncate();
 
         // CSVファイルのパス
-        $csvFile = database_path('csv\users_202406211004.csv');
+        $csvFile = database_path('csv/users_202406211004.csv');
 
         // CSVファイルを読み込み、データをデータベースに挿入
         $csvData = $this->csvToArray($csvFile);

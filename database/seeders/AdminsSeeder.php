@@ -16,7 +16,7 @@ class AdminsSeeder extends Seeder
         Admin::truncate();
 
         // CSVファイルのパス
-        $csvFile = database_path('csv\admins_202406211028.csv');
+        $csvFile = database_path('csv/admins_202406211028.csv');
 
         // CSVファイルを読み込み、データをデータベースに挿入
         $csvData = $this->csvToArray($csvFile);
