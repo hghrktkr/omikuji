@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
         lvup.play();
         resultText.innerText = rankName + '賞';
         resultContainer.classList.remove('hidden');
-      }, 4000); // 4000ミリ秒後
+      }, 2000); // 4000ミリ秒後
     });
   });
 });
