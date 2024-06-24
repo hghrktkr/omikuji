@@ -19,44 +19,46 @@ class CheckActiveSession
     public function handle(Request $request, Closure $next)
     {
         if(Auth::check()){
-
             // ユーザーのIDを取得
             $user_id = Auth::id();
 
+            // 自分以外の同一ユーザーのセッションを削除
+            DB::table('sessions')
+                ->where('user_id', $user_id)
+                ->where('id', '<>', Session::getId())
+                ->delete();
+
             // クライアント側のセッションIDを取得
-            $current_session_id = $request->session()->getId();
-            // dd($current_session_id);
+            // $current_session_id = Session::getId();
 
-            // ユーザーIDに該当する最新のセッション情報を取得
-            $latest_session = DB::table('sessions')
-                                ->where('user_id', $user_id)
-                                ->orderBy('last_activity', 'desc')
-                                ->first();
-            
-            // クライアントのセッションIDと、最新のセッションIDを比較
-            if($latest_session && $latest_session->id !== $current_session_id){
-                // 最新でない場合ログアウト
-                Auth::logout();
+            // // ユーザーIDに該当する最新のセッション情報を取得
+            // $latest_session = DB::table('sessions')
+            //                     ->where('user_id', $user_id)
+            //                     ->orderBy('last_activity', 'desc')
+            //                     ->first();
 
-                // 該当セッション情報を無効化
-                $request->session()->invalidate();
+            // // クライアントのセッションIDと、最新のセッションIDを比較
+            // if($latest_session && $latest_session->id !== $current_session_id){
+            //     // 最新でない場合ログアウト
+            //     Auth::logout();
 
-                // ログインページへリダイレクト
-                return redirect()->route('login')->with('message', '別の端末でログインがありました');
-            }else{
-                // クライアントのセッションIDが最新の場合、タイムスタンプを更新
-                DB::table('sessions')
-                    ->where('id', $current_session_id)
-                    ->update(['last_activity' => now()->timestamp]);
+            //     // 該当セッション情報を無効化
+            //     $request->session()->invalidate();
 
-                // 最新であるクライアント以外のセッション情報を削除->既ログインクライアントのCSRFトークンも消えるので419エラーになる！
-                // DB::table('sessions')
-                //     ->where([
-                //         ['user_id', '=', $user_id],
-                //         ['id', '<>', $current_session_id]
-                //         ])
-                //     ->delete();
-            };
+            //     // ログインページへリダイレクト
+            //     return redirect()->route('login')->with('message', '別の端末でログインがありました');
+            // }else{
+            //     // クライアントのセッションIDが最新の場合、タイムスタンプを更新
+            //     DB::table('sessions')
+            //         ->where('id', $current_session_id)
+            //         ->update(['last_activity' => now()->timestamp]);
+
+            //     // 最新であるクライアント以外のセッション情報を削除
+            //     DB::table('sessions')
+            //         ->where('user_id', $user_id)
+            //         ->where('id', '<>', $current_session_id)
+            //         ->delete();
+            // }
         }
         return $next($request);
     }
