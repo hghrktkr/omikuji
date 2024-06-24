@@ -22,7 +22,7 @@ Route::middleware('auth')->group(function () {
 });
 
 // ユーザーログイン後のページ
-Route::middleware('auth', CheckActiveSession::class)->group(function(){
+Route::middleware('auth')->group(function(){
     Route::post('/result', [ItemController::class, 'omikuji_draw'])->name('omikuji.result');
     Route::get('/history', [HistoryController::class, 'show_history'])->name('omikuji.history');
     Route::get('/empty', function(){return view('omikuji.empty');})->name('omikuji.empty');
