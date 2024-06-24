@@ -18,10 +18,10 @@ class CheckActiveSession
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::check()){
+        if(Auth::guard('guest')->check()){
 
             // ユーザーのIDを取得
-            $user_id = Auth::id();
+            $user_id = Auth::guard('guest')->id();
 
             // クライアント側のセッションIDを取得
             $current_session_id = $request->session()->getId();
