@@ -21,7 +21,7 @@ class CheckActiveSession
         if(Auth::check()){
 
             // ユーザーのIDを取得
-            $user_id = Auth::guard('guest')->id();
+            $user_id = Auth::id();
 
             // クライアント側のセッションIDを取得
             $current_session_id = $request->session()->getId();
