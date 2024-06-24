@@ -18,7 +18,7 @@ class CheckActiveSession
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::guard('guest')->check()){
+        if(Auth::check()){
 
             // ユーザーのIDを取得
             $user_id = Auth::guard('guest')->id();
