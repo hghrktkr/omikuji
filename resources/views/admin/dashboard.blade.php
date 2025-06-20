@@ -1,4 +1,4 @@
-<x-adminapp-layout>
+<x-aapp-layout>
 <section class="text-gray-600 body-font">
   <div class="container mx-auto">
     <div class="flex flex-col text-center w-full">
@@ -86,4 +86,4 @@
     @endif
   </div>
 </section>
-</x-adminapp-layout>
+</x-aapp-layout>
