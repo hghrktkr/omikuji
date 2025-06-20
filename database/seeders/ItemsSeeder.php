@@ -10,7 +10,7 @@ class ItemsSeeder extends Seeder
 {
     public function run(): void
     {
-        $csvFile = database_path('csv/items.csv'); // CSVファイルパス
+        $csvFile = database_path('csv/items_202506201455.csv'); // CSVファイルパス
         $rows = array_map('str_getcsv', file($csvFile));
         $header = array_shift($rows);
 
