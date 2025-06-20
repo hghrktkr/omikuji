@@ -15,7 +15,7 @@
                 <form method="POST" action="{{ route('omikuji.start') }}">
                     @csrf
                     <input type="hidden" name="is_practice" value="0"/>
-                    <x-big-button>くじをひく</x-big-button>
+                    <x-big-button>くじをひく！</x-big-button>
                 </form>
                 <form method="POST" action="{{ route('omikuji.start') }}">
                 <input type="hidden" name="is_practice" value="1"/>
